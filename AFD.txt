@@ -1,0 +1,84 @@
+package javaapplication1;
+import java.util.Scanner;
+
+ // Autor: Juan Rueda
+ 
+ public class JavaApplication1 {
+   
+    
+     public static void main(String[] args)
+     {
+         //En esta seccion se define el automata, pero no se como hacer leer archivos 
+        //como pide el profe, por lo que lo deje manual, con el ejemplo de la guia,
+        //para poder trabajar
+        String[] Sigma = {"a","b"};
+        String[] Q = {"q0","q1","q2"};
+        String q_0 = "q0";
+        String[] F ={"q0","q2"};
+        String[][] delta = {{"q0","q1"},{"q1","q2"},{"q1","q1"}};
+        
+        //Estas son variables que usare para identificar que letra del lenguaje
+        // y en que estado de de Q se encuentra una configuración instantanea
+        //Ademas asumo que que la cadena sera abortada para garantizar que no 
+        // aceptara cadenas sin procesar.
+        int letra = 0;
+        int estado = 0;
+        String status = "Rejected";
+        
+         
+        //Introduccir la cadena que desee comprobar si pertenese al lenguaje
+        //correspondiente
+        Scanner myObj = new Scanner(System.in);
+        String ejemplo;
+        System.out.println("Cadena que desea procesar"); 
+        ejemplo = myObj.nextLine();
+        
+        //inicialización de la configuración instantanea
+        String[] configuracion = {q_0,ejemplo};
+        System.out.println("(" + configuracion[0] + "," + configuracion[1] + ")");
+
+        //Si la cadena es vacia ($) verifica si el estado inicial es de aceptación
+        if("$".equals(ejemplo)){
+            for (String F1 : F) {
+                if (F1.equals(q_0)) {
+                    status = "Accepted";
+                    ejemplo = ejemplo.substring(1);
+                    break;
+                }
+            }
+        }
+        //Procesamiento de la cadena
+        while(!"".equals(ejemplo)){
+            
+            //identificación del estado actual
+            for (int i=0; i<Q.length; i++){
+                if(Q[i].equals(configuracion[0])){
+                    estado = i;
+                    break;
+                }
+            }
+            //identificación del primer termino de la cadena
+            for (int j=0; j<Sigma.length; j++){
+                if(Sigma[j] == null ? ejemplo.substring(0,1) == null : Sigma[j].equals(ejemplo.substring(0,1))){
+                    letra = j;
+                    break;
+                }
+            }
+            //actualización de la cadena y el estado para la configuración instantanea
+            ejemplo = ejemplo.substring(1);
+            configuracion[0] = delta[estado][letra];
+            configuracion[1] = ejemplo;
+            System.out.println("(" + configuracion[0] + "," + configuracion[1] + ")");
+        }
+        
+        //verifica si el estado final es de aceptación
+        for (String F1 : F) {
+            if (F1.equals(configuracion[0])) {
+                status = "Accepted";
+                break;
+             }
+        }
+        System.out.println(status);
+    }
+}
+    
