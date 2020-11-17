@@ -1,14 +1,14 @@
-package javaapplication1;
+
+package AFD;
 import java.util.Scanner;
 
  // Autor: Juan Rueda
  
- public class JavaApplication1 {
-   
-    
-     public static void main(String[] args)
-     {
-         //En esta seccion se define el automata, pero no se como hacer leer archivos 
+ public class AFD {
+
+     public static void main(String[] args){
+         
+        //En esta seccion se define el automata, pero no se como hacer leer archivos 
         //como pide el profe, por lo que lo deje manual, con el ejemplo de la guia,
         //para poder trabajar
         String[] Sigma = {"a","b"};
@@ -23,6 +23,7 @@ import java.util.Scanner;
         // aceptara cadenas sin procesar.
         int letra = 0;
         int estado = 0;
+        int supervisor = 0; // lo usare para verificar si una letra sa sale del alfabeto
         String status = "Rejected";
         
          
@@ -61,11 +62,21 @@ import java.util.Scanner;
             for (int j=0; j<Sigma.length; j++){
                 if(Sigma[j] == null ? ejemplo.substring(0,1) == null : Sigma[j].equals(ejemplo.substring(0,1))){
                     letra = j;
+                    ejemplo = ejemplo.substring(1);
                     break;
                 }
+                else{
+                    supervisor = 1 + supervisor;
+                }
             }
+            //Idetifica si una letra esta fuera del alfabeto
+            if(supervisor == Sigma.length){
+                System.out.append("Letra fuera del Alfabeto");
+                System.exit(0);
+            }
+            supervisor = 0;
+            
             //actualización de la cadena y el estado para la configuración instantanea
-            ejemplo = ejemplo.substring(1);
             configuracion[0] = delta[estado][letra];
             configuracion[1] = ejemplo;
             System.out.println("(" + configuracion[0] + "," + configuracion[1] + ")");
@@ -78,7 +89,7 @@ import java.util.Scanner;
                 break;
              }
         }
+        //Imprime si es aceptada o no
         System.out.println(status);
     }
 }
-    
