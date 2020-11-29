@@ -282,7 +282,7 @@ public class Main {
                     salir = true;
                     break;
                 default:
-                    System.out.println("Solo números entre 1 y 6");
+                    System.out.println("Solo números entre 1 y 9");
             }
 
         }

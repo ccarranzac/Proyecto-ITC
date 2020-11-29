@@ -132,7 +132,8 @@ public class AFD {
 
     public boolean esAceptada(String cadena){
         char[] aCaracteres = cadena.toCharArray();
-        
+        /* codigo para verificar que la cadena
+        * sea aceptada o no por el AFD*/
         return false;
     }
 }
