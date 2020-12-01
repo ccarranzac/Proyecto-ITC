@@ -1,7 +1,6 @@
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.sql.Array;
+import java.util.*;
 
 public class AFD {
     ArrayList alfabeto;
@@ -131,10 +130,81 @@ public class AFD {
     }
 
     public boolean esAceptada(String cadena){
+        int tamaño=transiciones.size();
         char[] aCaracteres = cadena.toCharArray();
-        /* codigo para verificar que la cadena
-        * sea aceptada o no por el AFD*/
-        return false;
+        String estado_actual=estado_inicial;
+        boolean aceptacion=false;
+
+        String[] estado=new String[tamaño];
+        char[] cadena_estado=new char[tamaño];
+        String[] sig_estado=new String[tamaño];
+        int posicion1 = 0;
+        int posicion2 = 0;
+
+
+        //sepraramos en 3 arreglos el conjunto de estados de aceptacion
+        for(int i=0;i<transiciones.size();i++){
+            String item= (String) transiciones.get(i);
+            char[] item_=item.toCharArray();
+            for(int j=0;j<item_.length;j++){
+                if(item_[j] == ':'){
+                    posicion1=j;
+                }
+                else if(item_[j]=='>'){
+                    posicion2=j;
+                }
+            }
+            char[] aux=new char[posicion1];
+            char[] aux2=new char[item_.length-(posicion2+1)];
+            int k=0;
+            for(int j=0;j<posicion1;j++){
+                aux[j]=item_[j];
+            }
+            estado[i]=new String(aux);
+            cadena_estado[i]=item_[posicion1+1];
+            for(int j=posicion2+1;j<item_.length;j++){
+                aux2[k]=item_[j];
+                k++;
+            }
+            sig_estado[i]=new String(aux2);
+
+        }
+
+        //para pruebas
+        /*System.out.println(Arrays.toString(estado));
+        System.out.println(cadena_estado);
+        System.out.println(Arrays.toString(sig_estado));*/
+
+
+        for(int i=0; i< aCaracteres.length;i++){
+            int num=0;
+            for(int j=0;j<estado.length;j++){
+                if(estado_actual.equals(estado[j])) {
+                    if (aCaracteres[i] == cadena_estado[j]) {
+                        num = j;
+                    }
+                }
+            }
+
+            char[] auxchar=new char[aCaracteres.length-i];
+            int l=i;
+            for(int k=0;k<auxchar.length;k++){
+                auxchar[k]=aCaracteres[l];
+                l++;
+            }
+            System.out.println("("+estado_actual+","+"" + new String(auxchar)+")"+"->");
+            estado_actual=sig_estado[num];
+        }
+        System.out.println("("+estado_actual+","+"$"+")"+">>");
+
+        for(int i=0;i<estados_aceptacion.size();i++){
+            String estado_aceptacion= (String) estados_aceptacion.get(i);
+            if(estado_actual.equals(estado_aceptacion)){
+                aceptacion=true;
+            }
+        }
+
+        return aceptacion;
     }
 }
 

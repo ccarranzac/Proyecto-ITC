@@ -129,6 +129,12 @@ public class Main {
                     if(alfabeto_correcto){
                         System.out.println("esta cadena si pertenece al alfabeto del AFD");
                         //Aqui va el metodo para saber si la cadena es aceptada
+                        boolean aceptacion=afd.esAceptada(cadena);
+                        if(aceptacion){
+                            System.out.println("accepted");
+                        }else{
+                            System.out.println("rejected");
+                        }
                     }else{
                         System.out.println("esta cadena no pertenece al alfabeto del AFD");
                     }
