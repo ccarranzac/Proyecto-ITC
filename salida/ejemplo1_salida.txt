@@ -1,0 +1,17 @@
+aabab
+(q0,aabab)->
+(q0,abab)->
+(q0,bab)->
+(q1,ab)->
+(q1,b)->
+(q2,$)>>
+yes
+aababa
+(q0,aababa)->
+(q0,ababa)->
+(q0,baba)->
+(q1,aba)->
+(q1,ba)->
+(q2,a)->
+(q1,$)>>
+no
