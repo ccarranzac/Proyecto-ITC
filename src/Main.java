@@ -84,19 +84,20 @@ public class Main {
         String cadena;
         boolean formato;
         boolean alfabeto_correcto;
-        System.out.println("=================================================================");
-        System.out.println("Proyecto ITC");
+        System.out.println("/---------------------------------------------------------------\\");
+        System.out.println("|"+"\u001B[32m"+"PROYECTO ITC"+"\u001B[0m"+"                                                   |");
         while (!salir) {
-            System.out.println("1. AFD");
-            System.out.println("2. AFPD");
-            System.out.println("3. AFPN");
-            System.out.println("4. AF2P");
-            System.out.println("5. Máquina de Turing – Modelo Estándar");
-            System.out.println("6. Máquina de Turing Modelo con una Cinta dividida en Pistas");
-            System.out.println("7. Máquina de Turing Modelo con Múltiples Cintas");
-            System.out.println("8. Máquina de Turing No Determinista");
-            System.out.println("9. Salir");
-
+            System.out.println("|---------------------------------------------------------------|");
+            System.out.println("|1. AFD                                                         |");
+            System.out.println("|2. AFPD                                                        |");
+            System.out.println("|3. AFPN                                                        |");
+            System.out.println("|4. AF2P                                                        |");
+            System.out.println("|5. Máquina de Turing – Modelo Estándar                         |");
+            System.out.println("|6. Máquina de Turing Modelo con una Cinta dividida en Pistas   |");
+            System.out.println("|7. Máquina de Turing Modelo con Múltiples Cintas               |");
+            System.out.println("|8. Máquina de Turing No Determinista                           |");
+            System.out.println("|9. Salir                                                       |");
+            System.out.println("\\---------------------------------------------------------------/");
             System.out.print("Escribe una de las opciones: ");
             opcion = Integer.parseInt(scanner.next());
 
@@ -123,33 +124,62 @@ public class Main {
                     System.out.println("Presione ENTER para continuar...");
                     System.in.read();
                     AFD afd=new AFD(ruta);
-                    System.out.print("Ingrese la cadena a evaluar: ");
-                    cadena=scanner.next();
-                    alfabeto_correcto=afd.alfabetoCorrecto(cadena);
-                    if(alfabeto_correcto){
-                        System.out.println("esta cadena si pertenece al alfabeto del AFD");
-                        //Aqui va el metodo para saber si la cadena es aceptada
-                        boolean aceptacion=afd.esAceptada(cadena);
-                        if(aceptacion){
-                            System.out.println("accepted");
-                        }else{
-                            System.out.println("rejected");
+                    System.out.print("\u001B[33m"+"desea procesar las cadenas en un archivo adicional(1) o en pantalla(ingrese cualquier otro número): "+"\u001B[0m");
+                    int numero_decision=Integer.parseInt(scanner.next());
+                    if(numero_decision==1){
+                        System.out.print("Cuantas cadenas desea evaluar: ");
+                        int cant_cadenas=Integer.parseInt(scanner.next());
+                        String [] cadenas=new String[cant_cadenas];
+                        for(int i=0;i<cadenas.length;i++){
+                            System.out.print("Ingrese la cadena "+(i+1)+": ");
+                            String cadena_item=scanner.next();
+                            cadenas[i]=cadena_item;
                         }
+                        System.out.print("Ingrese el nombre del archivo que donde imprimir el procesamiento de las cadenas: ");
+                        String nombreArchivoSalida=scanner.next();
+                        System.out.print("Desea que adicionalmente se imprima el procesamiento en consola (S/N): ");
+                        String auxSalida=scanner.next();
+                        boolean imprimirpantalla;
+                        if(auxSalida.equals("S")){
+                            imprimirpantalla=true;
+                        }else{
+                            imprimirpantalla=false;
+                        }
+                        afd.procesarListaCadenas(cadenas,nombreArchivoSalida,imprimirpantalla);
+                        System.out.println("Presione ENTER para salir...");
+                        System.in.read();
+                        break;
                     }else{
-                        System.out.println("esta cadena no pertenece al alfabeto del AFD");
-                    }
-                    System.out.println("");
-                    System.out.println("Presione ENTER para salir...");
-                    System.in.read();
+                        System.out.print("Ingrese la cadena a evaluar: ");
+                        cadena=scanner.next();
+                        alfabeto_correcto=afd.alfabetoCorrecto(cadena);
+                        System.out.println("/------------------------------------------\\");
+                        System.out.println("|"+"\u001B[31m"+"RESULTADO"+"\u001B[0m"+"                                 |");
+                        System.out.println("\\------------------------------------------/");
+                        if(alfabeto_correcto){
+                            System.out.println("esta cadena si pertenece al alfabeto del AFD");
+                            //Aqui va el metodo para saber si la cadena es aceptada
+                            boolean aceptacion=afd.esAceptada(cadena);
+                            if(aceptacion){
+                                System.out.println("accepted");
+                            }else{
+                                System.out.println("rejected");
+                            }
+                        }else{
+                            System.out.println("esta cadena no pertenece al alfabeto del AFD");
+                        }
+                        System.out.println("");
+                        System.out.println("Presione ENTER para salir...");
+                        System.in.read();
                     /*System.out.println(afd.items);
                     System.out.println(afd.alfabeto);
                     System.out.println(afd.estados);
                     System.out.println(afd.estado_inicial);
                     System.out.println(afd.estados_aceptacion);
                     System.out.println(afd.transiciones);*/
+                        break;
+                    }
 
-
-                    break;
                 case 2:
                     clearScreen();
                     System.out.println("*********************************************");
