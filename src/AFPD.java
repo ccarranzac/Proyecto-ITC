@@ -1,4 +1,7 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -11,8 +14,7 @@ public class AFPD {
     ArrayList estados_aceptacion;
     ArrayList transiciones;
     ArrayList items;
-    Stack<String> pila = new Stack();
-    char x = ' ';
+    String cad;
 
     public AFPD(ArrayList alfabeto,ArrayList alfabeto_pila, ArrayList estados, String estado_inicial, ArrayList estados_aceptacion, ArrayList transiciones) {
         this.alfabeto = alfabeto;
@@ -115,6 +117,7 @@ public class AFPD {
 
     //verificar que la cadena ingresada pertenezca al alfabeto
     public boolean alfabetoCorrecto(String cadena) {
+
         char[] aCaracteres = cadena.toCharArray();
         boolean alfabetoC = true;
         ArrayList ocur=new ArrayList();
@@ -138,15 +141,17 @@ public class AFPD {
             }
         }
         return alfabetoC;
-    }
-
-    public boolean esAceptada(String cadena){
+    }  
+    //Analiza la cadena según la configuración del automata
+    public String esAceptada(String cadena){
+        Stack<String> pila = new Stack();
         int tamaño=transiciones.size();
         char[] aCaracteres = cadena.toCharArray();
         String estado_actual=estado_inicial;
         boolean aceptacion=false;
         String cadenaf = "";
         StringBuilder stack = new StringBuilder();
+        StringBuilder procesamiento = new StringBuilder();
         char[] stack1=new char[tamaño];
         char[] stack2=new char[tamaño];
         String[] estado=new String[tamaño];
@@ -154,7 +159,8 @@ public class AFPD {
         String[] sig_estado=new String[tamaño];
         int posicion1 = 0;
         int posicion2 = 0;
-
+        Boolean computando = true;
+        String resultado;
 
         //sepraramos en 3 arreglos el conjunto de estados de aceptacion
         for(int i=0;i<transiciones.size();i++){
@@ -187,70 +193,110 @@ public class AFPD {
 
         }
 
-        //para pruebas
-        //  System.out.println(Arrays.toString(estado));
-        // System.out.println(cadena_estado);
-        //System.out.println(Arrays.toString(sig_estado));
+
 
         pila.push("Z");
+        stack.append("$");
+        cad= ("("+estado_actual+","+cadena+","+stack+")->");
+        procesamiento.append(cad);
         for(int i=0; i< aCaracteres.length;i++){
             int num=0;
             for(int j=0;j<estado.length;j++){
                 if(estado_actual.equals(estado[j])) {
                     if (aCaracteres[i] == cadena_estado[j] ) {
                         num = j;
-                        System.out.println(j+" "+stack2[j] );
-                        System.out.println(j+" "+stack1[j] );
+
                         //insercion o eliminacion de la pila
                         for(int k=0;k<alfabeto_pila.size();k++) {
                             if (String.valueOf(stack1[j]).equals("$") && !(String.valueOf(stack2[j]).equals("$")) ) {
                                 pila.push(String.valueOf(stack2[j]));
-                                System.out.println("if 1");
+                                stack.append(stack2[j]);
+
                                 break;
                             } else if (String.valueOf(stack1[j]).equals("$") && String.valueOf(stack2[j]).equals("$")){
                                 System.out.println("if 2");
                                 break;
                             } else if ((String.valueOf(stack1[j]).equals(alfabeto_pila.get(k))) && (pila.peek().equals(String.valueOf(stack1[j]))) && !(String.valueOf(stack2[j]).equals("$"))) {
                                 pila.pop();
+                                stack.deleteCharAt(stack.length()-1);
                                 pila.push(String.valueOf(stack2[j]));
-                                System.out.println("if 3");
+                                stack.append(stack2[j]);
+
                                 break;
 
                             }else if (String.valueOf(stack1[j]).equals(alfabeto_pila.get(k))  && (pila.peek().equals(String.valueOf(stack1[j]))) && (String.valueOf(stack2[j]).equals("$"))) {
                                 if(!pila.empty()) {
                                     pila.pop();
-                                    System.out.println("if 4");
+                                    stack.deleteCharAt(stack.length()-1);
                                     break;
                                 }
                             }
-                            pila.push("Z");
-                            break;
+                            computando = false;
                         }
                     }
                 }
             }
 
-            char[] auxchar=new char[aCaracteres.length-i];
-            int l=i;
-            for(int k=0;k<auxchar.length;k++){
-                auxchar[k]=aCaracteres[l];
-                l++;
+
+            if (computando) {
+
+               int l ;
+                if (i==0) {
+                    char[] auxchar=new char[aCaracteres.length-i-1];
+                    l = 1;
+                    System.out.println(auxchar.length);
+                    for(int k=0;k<auxchar.length;k++){
+                        auxchar[k]=aCaracteres[l];
+                        l++;
+                    }
+                   if(auxchar.length!=0) {
+
+                       estado_actual = sig_estado[num];
+                       cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack + ")->");
+                       procesamiento.append(cad);
+                   }else{
+                       estado_actual = sig_estado[num];
+                       cad = ("(" + estado_actual + ",$" + new String(auxchar) + "," + stack + ")>>");
+                       procesamiento.append(cad);
+                   }
+
+                }else{
+
+                    char[] auxchar=new char[aCaracteres.length-i-1];
+                    System.out.println(auxchar.length);
+                    l = i+1;
+                    for(int k=0;k<auxchar.length;k++){
+                        auxchar[k]=aCaracteres[l];
+                        l++;
+                    }
+                    if(auxchar.length!=0) {
+
+                        estado_actual = sig_estado[num];
+                        cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack + ")->");
+                        procesamiento.append(cad);
+                    }else{
+                        estado_actual = sig_estado[num];
+                        cad = ("(" + estado_actual + ",$" + new String(auxchar) + "," + stack + ")>>");
+                        procesamiento.append(cad);
+                    }
+                }
+
+            }else{
+                char[] auxchar=new char[aCaracteres.length-i];
+                int l=i;
+                for(int k=0;k<auxchar.length;k++){
+                    auxchar[k]=aCaracteres[l];
+                    l++;
+                }
+               cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack + ")>>no");
+                procesamiento.append(cad);
+                resultado = procesamiento.toString();
+                System.out.println(procesamiento);
+                return resultado;
             }
-            if (!pila.empty()) {
-                stack.append(pila.peek());
-            }
-            System.out.println("("+estado_actual+","+stack+"," + new String(auxchar)+")"+"->"+pila.empty());
-            estado_actual=sig_estado[num];
-            cadenaf=String.valueOf(auxchar);
         }
         if(pila.peek().equals("Z")) pila.pop();
-        System.out.println("("+estado_actual+","+"$"+")"+">>");
-       /* for(int i=0;i<pila.size();i++){
-            if (pila.peek()=="$"){
-                pila.pop();
-            }
 
-        }*/
 
         for(int i=0;i<estados_aceptacion.size();i++){
             String estado_aceptacion= (String) estados_aceptacion.get(i);
@@ -258,10 +304,53 @@ public class AFPD {
                 aceptacion=true;
             }
         }
-
-        return aceptacion;
+        if(aceptacion){
+            cad =("yes");
+            procesamiento.append(cad);
+        }
+        else{
+            cad = ("no");
+            procesamiento.append(cad);
+        }
+        System.out.println(procesamiento);
+        return procesamiento.toString();
     }
 
+    //procesamiento de varias cadenas y puedan ser guardadas en un archivo de texto
+    public void procesarListaCadenas(String []cadenas, String nombreArchivo,boolean imprimirPantalla) throws IOException {
+
+        String ruta="/home/tech/IdeaProjects/Proyecto-ITC/salida/"+nombreArchivo+".txt";
+
+        if(imprimirPantalla){
+            File archivo = new File(ruta);
+            BufferedWriter bw;
+            bw = new BufferedWriter(new FileWriter(archivo));
+
+            for(int i=0;i<cadenas.length;i++){
+                System.out.println(cadenas[i]);
+                bw.write(cadenas[i]);
+                bw.newLine();
+                System.out.println(esAceptada(cadenas[i]));
+                bw.write(esAceptada(cadenas[i]));
+                bw.newLine();
+            }
+            bw.close();
+            System.out.println("\u001B[35m"+"ARCHIVO CREADO"+"\u001B[0m");
+        }else{
+            File archivo = new File(ruta);
+            BufferedWriter bw;
+            bw = new BufferedWriter(new FileWriter(archivo));
+            for(int i=0;i<cadenas.length;i++){
+                bw.write(cadenas[i]);
+                bw.newLine();
+                bw.write(esAceptada(cadenas[i]));
+                bw.newLine();
+            }
+            bw.close();
+            System.out.println("\u001B[35m"+"ARCHIVO CREADO"+"\u001B[0m");
+        }
+
+    }
 
 }
 

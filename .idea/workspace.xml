@@ -19,9 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b0c75dc-e182-4eff-95a7-d8262f5c42a5" name="Default Changelist" comment="">
+    <list default="true" id="8b0c75dc-e182-4eff-95a7-d8262f5c42a5" name="Default Changelist" comment="AFPD implementado.">
+      <change afterPath="$PROJECT_DIR$/archivos/ejemplop.dpda" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archivos/ejemplo2.dpda" beforeDir="false" afterPath="$PROJECT_DIR$/archivos/ejemplo2.dpda" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PROYECTO-ITC/AFPD.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROYECTO-ITC/AFPD.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PROYECTO-ITC/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PROYECTO-ITC/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AFPD.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AFPD.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,29 +56,24 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/archivos" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/archivos" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="PROYECTO-ITC" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -110,8 +110,21 @@
       <workItem from="1606833614530" duration="6066000" />
       <workItem from="1606949986062" duration="2471000" />
       <workItem from="1607005112772" duration="3967000" />
-      <workItem from="1607014363691" duration="1031000" />
+      <workItem from="1607014363691" duration="1842000" />
+      <workItem from="1607358366465" duration="2606000" />
+      <workItem from="1607371371985" duration="764000" />
+      <workItem from="1607379859285" duration="17272000" />
+      <workItem from="1607517514862" duration="8158000" />
+      <workItem from="1607574536970" duration="1048000" />
     </task>
+    <task id="LOCAL-00001" summary="AFPD implementado.">
+      <created>1607015674024</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607015674024</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,12 +140,21 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="AFPD implementado." />
+    <option name="LAST_COMMIT_MESSAGE" value="AFPD implementado." />
   </component>
   <component name="WindowStateProjectService">
     <state x="452" y="130" key="#Project_Structure" timestamp="1605382451551">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="452" y="130" key="#Project_Structure/0.30.1920.1050@0.30.1920.1050" timestamp="1605382451551" />
+    <state x="679" y="345" width="554" height="388" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1607476074378">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state x="679" y="345" width="554" height="388" key="#com.intellij.fileTypes.FileTypeChooser/1920.312.1366.768/0.0.1920.1053@0.0.1920.1053" timestamp="1607476074378" />
     <state x="665" y="396" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1606833598691">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -149,22 +171,30 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="690" y="236" key="FileChooserDialogImpl/0.30.1920.1050@0.30.1920.1050" timestamp="1606833597438" />
-    <state width="1865" height="347" key="GridCell.Tab.0.bottom" timestamp="1607010716359">
-      <screen x="0" y="30" width="1920" height="1050" />
+    <state width="940" height="523" key="GridCell.Tab.0.bottom" timestamp="1607525465528">
+      <screen x="0" y="0" width="1920" height="1053" />
     </state>
     <state width="1865" height="347" key="GridCell.Tab.0.bottom/0.30.1920.1050@0.30.1920.1050" timestamp="1607010716359" />
-    <state width="1865" height="347" key="GridCell.Tab.0.center" timestamp="1607010716358">
-      <screen x="0" y="30" width="1920" height="1050" />
+    <state width="946" height="645" key="GridCell.Tab.0.bottom/1920.312.1366.768/0.0.1366.741@0.0.1366.741" timestamp="1607389438748" />
+    <state width="940" height="523" key="GridCell.Tab.0.bottom/1920.312.1366.768/0.0.1920.1053@0.0.1920.1053" timestamp="1607525465528" />
+    <state width="940" height="523" key="GridCell.Tab.0.center" timestamp="1607525465526">
+      <screen x="0" y="0" width="1920" height="1053" />
     </state>
     <state width="1865" height="347" key="GridCell.Tab.0.center/0.30.1920.1050@0.30.1920.1050" timestamp="1607010716358" />
-    <state width="1865" height="347" key="GridCell.Tab.0.left" timestamp="1607010716358">
-      <screen x="0" y="30" width="1920" height="1050" />
+    <state width="946" height="645" key="GridCell.Tab.0.center/1920.312.1366.768/0.0.1366.741@0.0.1366.741" timestamp="1607389438748" />
+    <state width="940" height="523" key="GridCell.Tab.0.center/1920.312.1366.768/0.0.1920.1053@0.0.1920.1053" timestamp="1607525465526" />
+    <state width="940" height="523" key="GridCell.Tab.0.left" timestamp="1607525465526">
+      <screen x="0" y="0" width="1920" height="1053" />
     </state>
     <state width="1865" height="347" key="GridCell.Tab.0.left/0.30.1920.1050@0.30.1920.1050" timestamp="1607010716358" />
-    <state width="1865" height="347" key="GridCell.Tab.0.right" timestamp="1607010716358">
-      <screen x="0" y="30" width="1920" height="1050" />
+    <state width="946" height="645" key="GridCell.Tab.0.left/1920.312.1366.768/0.0.1366.741@0.0.1366.741" timestamp="1607389438747" />
+    <state width="940" height="523" key="GridCell.Tab.0.left/1920.312.1366.768/0.0.1920.1053@0.0.1920.1053" timestamp="1607525465526" />
+    <state width="940" height="523" key="GridCell.Tab.0.right" timestamp="1607525465527">
+      <screen x="0" y="0" width="1920" height="1053" />
     </state>
     <state width="1865" height="347" key="GridCell.Tab.0.right/0.30.1920.1050@0.30.1920.1050" timestamp="1607010716358" />
+    <state width="946" height="645" key="GridCell.Tab.0.right/1920.312.1366.768/0.0.1366.741@0.0.1366.741" timestamp="1607389438748" />
+    <state width="940" height="523" key="GridCell.Tab.0.right/1920.312.1366.768/0.0.1920.1053@0.0.1920.1053" timestamp="1607525465527" />
     <state width="1865" height="337" key="GridCell.Tab.1.bottom" timestamp="1606811593004">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -185,10 +215,10 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="352" y="30" key="SettingsEditor/0.30.1920.1050@0.30.1920.1050" timestamp="1606833132030" />
-    <state x="2198" y="419" width="806" height="526" key="Vcs.Push.Dialog.v2" timestamp="1607015396349">
+    <state x="2198" y="419" width="806" height="526" key="Vcs.Push.Dialog.v2" timestamp="1607015715586">
       <screen x="1920" y="312" width="1366" height="768" />
     </state>
-    <state x="2198" y="419" width="806" height="526" key="Vcs.Push.Dialog.v2/1920.312.1366.768/0.0.1920.1053@1920.312.1366.768" timestamp="1607015396349" />
+    <state x="2198" y="419" width="806" height="526" key="Vcs.Push.Dialog.v2/1920.312.1366.768/0.0.1920.1053@1920.312.1366.768" timestamp="1607015715586" />
     <state x="591" y="337" key="com.intellij.ide.util.TipDialog" timestamp="1607005770236">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
@@ -197,6 +227,11 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="425" y="230" width="1069" height="739" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.30.1920.1050@0.30.1920.1050" timestamp="1606173273207" />
+    <state x="1920" y="312" width="1366" height="741" key="dock-window-1" timestamp="1607574792977">
+      <screen x="1920" y="312" width="1366" height="768" />
+    </state>
+    <state x="1920" y="312" width="1366" height="741" key="dock-window-1/1920.312.1366.768/0.0.1920.1053@0.0.1920.1053" timestamp="1607574792977" />
+    <state x="481" y="0" width="1020" height="699" maximized="true" key="dock-window-1/1920.312.1366.768/0.0.1920.1053@1920.312.1366.768" timestamp="1607368204143" />
     <state x="230" y="88" key="new project wizard" timestamp="1605803999944">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
