@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8b0c75dc-e182-4eff-95a7-d8262f5c42a5" name="Default Changelist" comment="AFPD implementado.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="8b0c75dc-e182-4eff-95a7-d8262f5c42a5" name="Default Changelist" comment="AFPD implementado." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +111,7 @@
       <workItem from="1607615439124" duration="29974000" />
       <workItem from="1607667259696" duration="93000" />
       <workItem from="1607667472625" duration="342000" />
-      <workItem from="1607667836731" duration="12257000" />
+      <workItem from="1607667836731" duration="12852000" />
     </task>
     <task id="LOCAL-00001" summary="AFPD implementado.">
       <created>1607015674024</created>
