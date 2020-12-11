@@ -1,11 +1,44 @@
-Formato de Entrada MT
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nunc a
- vestibulum ante, sed egestas dui. Aliquam sit amet eleifend ipsum,
- vitae rhoncus augue. Donec feugiat tincidunt malesuada. Integer ac
- posuere elit. In sit amet sapien elementum risus blandit pellentesque.
- Nam eu sem accumsan, imperdiet augue et, porttitor orci. Cras vestibulum
- maximus vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Sed non ex volutpat, volutpat libero ac, tristique quam. Aliquam augue massa,
- rutrum ac justo at, fringilla auctor neque. Quisque bibendum pharetra erat,
- eu commodo eros volutpat non.
+#states
+q0
+q1
+q2
+q3
+q4
+q5
+q6
+q7
+q8
+#initial
+q0
+#accepting
+q8
+#inputAlphabet
+a
+b
+c
+#tapeAlphabet
+A
+B
+C
+#transitions
+q0:a?q1:A:>
+q1:a?q1:a:>
+q1:B?q1:B:>
+q1:b?q2:B:>
+q2:b?q2:b:>
+q2:C?q2:C:>
+q2:c?q3:C:-
+q3:a?q3:a:<
+q3:b?q3:b:<
+q3:B?q3:B:<
+q3:C?q3:C:<
+q3:A?q0:A:>
+q0:B?q4:B:>
+q0:b?q4:b:-
+q4:B?q4:B:>
+q4:b?q5:b:>
+q5:C?q6:C:>
+q5:c?q6:c:-
+q6:C?q6:C:>
+q6:c?q7:c:>
+q7:c?q8:c:>
