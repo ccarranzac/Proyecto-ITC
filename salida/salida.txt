@@ -1,5 +1,5 @@
-abbccc
+aabbcc
 Procesamiento:
-!q0abbccc!->!Aq1bbccc!->!ABq2bccc!->!ABbq2ccc!->!ABbq3Ccc!->!ABq3bCcc!->!Aq3BbCcc!->!q3ABbCcc!->!Aq0BbCcc!->!ABq4bCcc!->!ABbq5Ccc!->!ABbCq6cc!->!ABbCcq7c!->!ABbCccq8!(Accepted)
-abc
-!q0abc!->!Aq1bc!->!ABq2c!->!ABq3C!->!Aq3BC!->!q3ABC!->!Aq0BC!->!ABq4C!(Rejected)
+(!,!)(q0)(a,!)(a,!)(b,!)(b,!)(c,!)(c,!)(!,!)->(!,!)(a,X)(q1)(a,!)(b,!)(b,!)(c,!)(c,!)(!,!)->(!,!)(a,X)(a,!)(q1)(b,!)(b,!)(c,!)(c,!)(!,!)->(!,!)(a,X)(a,!)(b,Y)(q2)(b,!)(c,!)(c,!)(!,!)->(!,!)(a,X)(a,!)(b,Y)(b,!)(q2)(c,!)(c,!)(!,!)->(!,!)(a,X)(a,!)(b,Y)(q3)(b,!)(c,Z)(c,!)(!,!)->(!,!)(a,X)(a,!)(q3)(b,Y)(b,!)(c,Z)(c,!)(!,!)->(!,!)(a,X)(q3)(a,!)(b,Y)(b,!)(c,Z)(c,!)(!,!)->(!,!)(q3)(a,X)(a,!)(b,Y)(b,!)(c,Z)(c,!)(!,!)->(!,!)(a,X)(q0)(a,!)(b,Y)(b,!)(c,Z)(c,!)(!,!)->(!,!)(a,X)(a,X)(q1)(b,Y)(b,!)(c,Z)(c,!)(!,!)->(!,!)(a,X)(a,X)(b,Y)(q1)(b,!)(c,Z)(c,!)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(q2)(c,Z)(c,!)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(c,Z)(q2)(c,!)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(q3)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(a,X)(b,Y)(q3)(b,Y)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(a,X)(q3)(b,Y)(b,Y)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(q3)(a,X)(b,Y)(b,Y)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(a,X)(q0)(b,Y)(b,Y)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(a,X)(b,Y)(q4)(b,Y)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(q4)(c,Z)(c,Z)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(c,Z)(q4)(c,Z)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(c,Z)(c,Z)(q4)(!,!)->(!,!)(a,X)(a,X)(b,Y)(b,Y)(c,Z)(c,Z)(q5)(!,!)(Accepted)
+abcc
+(!,!)(q0)(a,!)(b,!)(c,!)(c,!)(!,!)->(!,!)(a,X)(q1)(b,!)(c,!)(c,!)(!,!)->(!,!)(a,X)(b,Y)(q2)(c,!)(c,!)(!,!)->(!,!)(a,X)(q3)(b,Y)(c,Z)(c,!)(!,!)->(!,!)(q3)(a,X)(b,Y)(c,Z)(c,!)(!,!)->(!,!)(a,X)(q0)(b,Y)(c,Z)(c,!)(!,!)->(!,!)(a,X)(b,Y)(q4)(c,Z)(c,!)(!,!)->(!,!)(a,X)(b,Y)(c,Z)(q4)(c,!)(!,!)(Rejected)

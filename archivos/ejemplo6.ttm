@@ -1,11 +1,40 @@
-Formato de Entrada MT con una cinta dividida en pistas
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nunc a
- vestibulum ante, sed egestas dui. Aliquam sit amet eleifend ipsum,
- vitae rhoncus augue. Donec feugiat tincidunt malesuada. Integer ac
- posuere elit. In sit amet sapien elementum risus blandit pellentesque.
- Nam eu sem accumsan, imperdiet augue et, porttitor orci. Cras vestibulum
- maximus vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Sed non ex volutpat, volutpat libero ac, tristique quam. Aliquam augue massa,
- rutrum ac justo at, fringilla auctor neque. Quisque bibendum pharetra erat,
- eu commodo eros volutpat non.
+#states
+q0
+q1
+q2
+q3
+q4
+q5
+#initial
+q0
+#accepting
+q5
+#inputAlphabet
+a
+b
+c
+#tapeAlphabet
+a
+b
+c
+X
+Y
+Z
+#transitions
+q0:a:!?q1:a:X:>
+q1:a:!?q1:a:!:>
+q1:b:Y?q1:b:Y:>
+q1:b:!?q2:b:Y:>
+q2:b:!?q2:b:!:>
+q2:c:Z?q2:c:Z:>
+q2:c:!?q3:c:Z:<
+q3:a:!?q3:a:!:<
+q3:b:!?q3:b:!:<
+q3:b:Y?q3:b:Y:<
+q3:c:Z?q3:c:Z:<
+q3:a:X?q0:a:X:>
+q0:!:!?q5:!:!:-
+q0:b:Y?q4:b:Y:>
+q4:b:Y?q4:b:Y:>
+q4:c:Z?q4:c:Z:>
+q4:!:!?q5:!:!:-
