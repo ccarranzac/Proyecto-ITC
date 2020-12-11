@@ -272,9 +272,9 @@ public class Main {
                 case 4:
                     clearScreen();
                     System.out.println("*********************************************");
-                    System.out.println("Has seleccionado la opcion AF2P");
+                    System.out.println("Has seleccionado la opcion AFD");
                     System.out.println("*********************************************");
-                    System.out.println("Ingrese el nombre del archivo: ");
+                    System.out.print("Ingrese el nombre del archivo: ");
                     nombreArchivo = scanner.next();
                     formato = ArchivoCorrecto(nombreArchivo,opcion);
                     if(formato==false){
@@ -282,14 +282,65 @@ public class Main {
                         break;
                     }
                     System.out.println("Extensión de archivo correcto");
-                    ruta="E:\\IntellijProjects\\PROYECTO-ITC\\archivos\\"+nombreArchivo;
+                    ruta="/home/tech/IdeaProjects/Proyecto-ITC/archivos/"+nombreArchivo;
                     System.out.println("*********************************************");
                     System.out.println("EL ARCHIVO CARGADO ES:");
                     muestraContenido(ruta);
                     System.out.println("*********************************************");
                     System.out.println("Presione ENTER para continuar...");
                     System.in.read();
-                    break;
+                    AF2P af2p=new AF2P(ruta);
+                    System.out.print("\u001B[33m"+"desea procesar las cadenas en un archivo adicional(1) o en pantalla(ingrese cualquier otro número): "+"\u001B[0m");
+                    int numero_decision2p=Integer.parseInt(scanner.next());
+                    if(numero_decision2p==1){
+                        System.out.print("Cuantas cadenas desea evaluar: ");
+                        int cant_cadenas=Integer.parseInt(scanner.next());
+                        String [] cadenas=new String[cant_cadenas];
+                        for(int i=0;i<cadenas.length;i++){
+                            System.out.print("Ingrese la cadena "+(i+1)+": ");
+                            String cadena_item=scanner.next();
+                            cadenas[i]=cadena_item;
+                        }
+                        System.out.print("Ingrese el nombre del archivo que donde imprimir el procesamiento de las cadenas: ");
+                        String nombreArchivoSalida=scanner.next();
+                        System.out.print("Desea que adicionalmente se imprima el procesamiento en consola (S/N): ");
+                        String auxSalida=scanner.next();
+                        boolean imprimirpantalla;
+                        if(auxSalida.equals("S")){
+                            imprimirpantalla=true;
+                        }else{
+                            imprimirpantalla=false;
+                        }
+                        af2p.procesarListaCadenas(cadenas,nombreArchivoSalida,imprimirpantalla);
+                        System.out.println("Presione ENTER para salir...");
+                        System.in.read();
+                        break;
+                    }else{
+                        System.out.print("Ingrese la cadena a evaluar: ");
+                        cadena=scanner.next();
+                        alfabeto_correcto= true;
+                        System.out.println("/------------------------------------------\\");
+                        System.out.println("|"+"\u001B[31m"+"RESULTADO"+"\u001B[0m"+"                                 |");
+                        System.out.println("\\------------------------------------------/");
+                        if(alfabeto_correcto){
+                            System.out.println("esta cadena si pertenece al alfabeto del AFD");
+                            //Aqui va el metodo para saber si la cadena es aceptada
+                            af2p.esAceptada(cadena);
+
+                        }else{
+                            System.out.println("esta cadena no pertenece al alfabeto del AF2P");
+                        }
+                        System.out.println("");
+                        System.out.println("Presione ENTER para salir...");
+                        System.in.read();
+                    /*System.out.println(afd.items);
+                    System.out.println(afd.alfabeto);
+                    System.out.println(afd.estados);
+                    System.out.println(afd.estado_inicial);
+                    System.out.println(afd.estados_aceptacion);
+                    System.out.println(afd.transiciones);*/
+                        break;
+                    }
                 case 5:
                     clearScreen();
                     System.out.println("*********************************************");
