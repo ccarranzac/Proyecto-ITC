@@ -1,0 +1,122 @@
+package mtp;
+
+//@author Juan Rueda
+
+import java.util.Scanner;
+
+public class MTP {
+    
+    public static void main(String[] args) {
+        String[] Sigma = {"a","b","c"};
+        String[] GammaS = {"a","b","c","X","Y","Z"};
+        String[] Gamma = Sigma;
+        String[] Q = {"q0","q1","q2","q3","q4","q5"};
+        String q_0 = "q0";
+        String q_a = "q5";
+        
+        String[] delta = {"q0:a:!?q1:a:X:>","q1:a:!?q1:a:!:>","q1:b:Y?q1:b:Y:>",
+                          "q1:b:!?q2:b:Y:>","q2:b:!?q2:b:!:>","q2:c:Z?q2:c:Z:>",
+                          "q2:c:!?q3:c:Z:<","q3:a:!?q3:a:!:<","q3:b:!?q3:b:!:<",
+                          "q3:b:Y?q3:b:Y:<","q3:c:Z?q3:c:Z:<","q3:a:X?q0:a:X:>",
+                          "q0:!:!?q5:!:!:-","q0:b:Y?q4:b:Y:>","q4:b:Y?q4:b:Y:>",
+                          "q4:c:Z?q4:c:Z:>","q4:!:!?q5:!:!:-"};
+        
+        int N_Pistas = 0;
+        
+        for (int j = 2; j < delta[0].length(); j++){
+            if (":".equals(delta[0].substring(j,j+1))){
+                N_Pistas = N_Pistas +1 ;
+            }
+            if("?".equals(delta[0].substring(j,j+1))){
+                break;
+            }
+        }
+        
+        String estado = q_0;
+        int posicion = 1;
+        int supervisor = 0; // lo usare para verificar si una letra sa sale del alfabeto
+        String status = "Accepted";
+        String Procesamiento = "";
+        
+        String[] Pista = new String[N_Pistas];
+        
+        Scanner myObj = new Scanner(System.in);  ///////////////////////////
+        System.out.println("Cadena que desea procesar");
+        
+        Pista[0] = "!" + myObj.nextLine() + "!";
+        
+        for (int j = 1; j < N_Pistas; j++){
+            Pista[j] = "";
+            for(int i = 0; i < Pista[0].length(); i++){
+                Pista[j] = Pista[j] + "!";
+            }
+        }
+        
+        String Configuracion = "";
+        String Componente = "";
+        
+        for (int i = 0; i < Pista[0].length(); i++){
+            Componente = Pista[0].substring(i,i+1);
+            for(int j = 1; j < N_Pistas; j++){
+                Componente = Componente + "," + Pista[j].substring(i,i+1);
+            }
+            Configuracion = Configuracion + "(" + Componente + ")" ;
+        }
+        
+        Configuracion = Configuracion.substring(0,(N_Pistas+3)*posicion)+"("+ estado + ")" + Configuracion.substring((N_Pistas+3)*posicion);
+        
+        Procesamiento = Configuracion;
+        
+        int Coincidencias = 0;
+        
+        while (!estado.equals(q_a)){
+            for (String delta1 : delta) {
+                for (int j = 2; j < delta1.length(); j++) {
+                    if ("?".equals(delta1.substring(j, j+1))) {
+                        for (int i = 0; i < N_Pistas; i++){
+                            if((Pista[N_Pistas-i-1].substring(posicion,posicion+1)).equals(delta1.substring(j-(2*i)-1,j-(2*i)))){
+                                Coincidencias = Coincidencias + 1;
+                            }  
+                        }
+                        if((Coincidencias == N_Pistas)&&(estado.equals(delta1.substring(0,j-(2*N_Pistas))))){
+                            estado = delta1.substring(j+1,delta1.length()-(2*N_Pistas)-2);
+                            for (int i = 0; i < N_Pistas; i++){
+                                Pista[N_Pistas-i-1] = Pista[N_Pistas-i-1].substring(0,posicion)+ delta1.substring(delta1.length()-(2*i)-3,delta1.length()-(2*i)-2) + Pista[N_Pistas-i-1].substring(posicion+1);
+                            }
+                            if(">".equals(delta1.substring(delta1.length()-1))){
+                                posicion = posicion+1;
+                            }
+                            if("<".equals(delta1.substring(delta1.length()-1))){
+                                posicion = posicion -1;
+                            }
+                            supervisor = 0;
+                            
+                            Configuracion = "";
+                            
+                            for (int i = 0; i < Pista[0].length(); i++){
+                                Componente = Pista[0].substring(i,i+1);
+                                for(int n = 1; n < N_Pistas; n++){
+                                    Componente = Componente + "," + Pista[n].substring(i,i+1);
+                                }
+                                Configuracion = Configuracion + "(" + Componente + ")" ;
+                            }
+                            Configuracion = Configuracion.substring(0,(N_Pistas+3)*posicion)+"("+ estado + ")" + Configuracion.substring((N_Pistas+3)*posicion);
+                            Procesamiento = Procesamiento + "->" + Configuracion;
+                        }
+                        Coincidencias = 0;
+                    }
+                }
+                supervisor = supervisor + 1;
+                if(supervisor == delta.length){
+                status = "Rejected";
+                System.out.println(Procesamiento + "(" + status + ")");
+                System.exit(0);
+                }
+            }  
+        }
+        System.out.println("Procesamiento:");
+        System.out.println(Procesamiento + "(" + status + ")");
+        
+    }
+    
+}
