@@ -17,6 +17,9 @@ a
 b
 c
 #tapeAlphabet
+a
+b
+c
 A
 B
 C
