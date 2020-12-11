@@ -226,7 +226,7 @@ public class AFPN {
                 }
 
                 if(numeros.size()==0){
-                    System.out.println("no hay caminos disponibles");
+                    //System.out.println("no hay caminos disponibles");
                 }
                 else if(numeros.size()==1){
                     int numero= (int) numeros.get(0);
@@ -389,7 +389,7 @@ public class AFPN {
                         }
 
                         if(numeros.size()==0){
-                            System.out.println("no hay caminos disponibles");
+                            //System.out.println("no hay caminos disponibles");
                         }
                         else if(numeros.size()==1){
                             int numero= (int) numeros.get(0);
@@ -503,7 +503,7 @@ public class AFPN {
                         }
 
                         if(numeros.size()==0){
-                            System.out.println("no hay caminos disponibles");
+                            //System.out.println("no hay caminos disponibles");
                         }
                         else if(numeros.size()==1){
                             int numero= (int) numeros.get(0);
