@@ -107,7 +107,7 @@ public class MTMC {
                             Configuracion = "(" + estado + Configuracion + ")";
                             
                             Procesamiento = Procesamiento + "->" + Configuracion;
-                            System.out.println(Procesamiento);
+                            
                         }
                         Coincidencias = 0;
                     }
