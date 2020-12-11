@@ -1,0 +1,78 @@
+package mt;
+
+import java.util.Scanner;
+
+//@author Juan Rueda
+
+public class MT {
+
+    public static void main(String[] args) {
+        String[] Sigma = {"a","b","c"};
+        String[] GammaS = {"X","Y","Z"};
+        String[] Gamma = Sigma;
+        String[] Q = {"q0","q1","q2","q3","q4","q5"};
+        String q_0 = "q0";
+        String q_a = "q5";
+        //La matriz de transiciones tiene en sus columnas las transiciones para
+        //las letras de Sigma, luego de GammaS (es decir Gamma), en la ultima 
+        //columna la transicion de la caja y en columnas los estados.
+        String[] delta = {"q0:a?q1:X:>","q0:Y?q4:Y:>","q0:!?q5:!:-",
+                          "q1:a?q1:a:>","q1:b?q2:Y:>","q1:Y?q1:Y:>",
+                          "q2:b?q2:b:>","q2:c?q3:Z:<","q2:Z?q2:Z:>",
+                          "q3:a?q3:a:<","q3:b?q3:b:<","q3:X?q0:X:>","q3:Y?q3:Y:<","q3:Z?q3:Z:<",
+                          "q4:Y?q4:Y:>","q4:Z?q4:Z:>","q4:!?q5:!:-"};
+        String Cinta = "";
+        
+        //Estas son variables que usare para identificar que letra del lenguaje
+        // y en que estado de Q se encuentra una configuración instantanea
+        //Ademas asumo que que la cadena sera abortada para garantizar que no 
+        //aceptara cadenas sin procesar.
+        
+        String estado = q_0;
+        int posicion = 1;
+        int supervisor = 0; // lo usare para verificar si una letra sa sale del alfabeto
+        String status = "Accepted";
+        String Procesamiento = "";
+        
+        
+        //Introduccir la cadena que desee comprobar si pertenese al lenguaje
+        //correspondiente
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("Cadena que desea procesar");
+        
+        Cinta = "!" + myObj.nextLine() + "!";
+        
+        String Configuracion = Cinta.substring(0,posicion)+estado+Cinta.substring(posicion);
+        Procesamiento = Configuracion;
+       
+        while (!estado.equals(q_a)){
+            for (String delta1 : delta) {
+                for (int j = 2; j < delta1.length(); j++) {
+                    if ("?".equals(delta1.substring(j, j+1))) {
+                        if ((estado.equals(delta1.substring(0, j-2)))&&((Cinta.substring(posicion,posicion+1)).equals(delta1.substring(j-1,j)))){
+                            estado = delta1.substring(j+1,delta1.length()-4);
+                            Cinta = Cinta.substring(0,posicion)+delta1.substring(delta1.length()-3,delta1.length()-2)+Cinta.substring(posicion+1);
+                            if(">".equals(delta1.substring(delta1.length()-1))){
+                                posicion = posicion+1;
+                            }
+                            if("<".equals(delta1.substring(delta1.length()-1))){
+                                posicion = posicion -1;
+                            }
+                            supervisor = 0;
+                            Configuracion = Cinta.substring(0,posicion)+estado+Cinta.substring(posicion);
+                            Procesamiento = Procesamiento + "->" + Configuracion;
+                        }
+                    }
+                }
+                supervisor = supervisor + 1;
+                if(supervisor == delta.length){
+                status = "Rejected";
+                System.out.println(Procesamiento + "(" + status + ")");
+                System.exit(0);
+                }
+            }  
+        }
+        System.out.println("Procesamiento:");
+        System.out.println(Procesamiento + "(" + status + ")");
+    }
+}
