@@ -2,7 +2,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Array;
 import java.util.*;
 
 public class AFD {
@@ -245,7 +244,7 @@ public class AFD {
 
         }
 
-        String ruta="E:\\IntellijProjects\\PROYECTO-ITC\\salida\\"+nombreArchivo+".txt";
+        String ruta="E:\\IntellijProjects\\repositorios git\\PROYECTO-ITC\\salida\\"+nombreArchivo+".txt";
 
         if(imprimirPantalla){
             File archivo = new File(ruta);

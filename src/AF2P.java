@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class AFPD {
+public class AF2P {
     ArrayList alfabeto;
     ArrayList alfabeto_pila;
     ArrayList estados;
@@ -16,7 +16,7 @@ public class AFPD {
     ArrayList items;
     String cad;
 
-    public AFPD(ArrayList alfabeto,ArrayList alfabeto_pila, ArrayList estados, String estado_inicial, ArrayList estados_aceptacion, ArrayList transiciones) {
+    public AF2P(ArrayList alfabeto,ArrayList alfabeto_pila, ArrayList estados, String estado_inicial, ArrayList estados_aceptacion, ArrayList transiciones) {
         this.alfabeto = alfabeto;
         this.alfabeto_pila = alfabeto_pila;
         this.estados = estados;
@@ -25,7 +25,7 @@ public class AFPD {
         this.transiciones = transiciones;
     }
 
-    public AFPD(String NombreArchivo) {
+    public AF2P(String NombreArchivo) {
         File fichero = new File(NombreArchivo);
         Scanner s = null;
 
@@ -82,7 +82,7 @@ public class AFPD {
                 pos_transiciones = i;
             }
         }
-
+        //lectura de los items de la configuración
         //alfabeto
         for (int i = pos_alfabeto + 1; i < pos_alfabeto_p; i++) {
             alfabeto_f.add(items_f.get(i));
@@ -105,8 +105,7 @@ public class AFPD {
         for (int i = pos_transiciones + 1; i < items_f.size(); i++) {
             transiciones_f.add(items_f.get(i));
         }
-        //new AFD(alfabeto_f,estados_f,estado_inicial_f,estados_aceptacion_f,transiciones_f);
-        //this(alfabeto_f,estados_f,estado_inicial_f,estados_aceptacion_f,transiciones_f);
+
         this.alfabeto = alfabeto_f;
         this.alfabeto_pila = alfabeto_pila_f;
         this.estados = estados_f;
@@ -141,19 +140,22 @@ public class AFPD {
             }
         }
         return alfabetoC;
-    }  
+    }
     //Analiza la cadena según la configuración del automata
     public String esAceptada(String cadena){
-        Stack<String> pila = new Stack();
+        Stack<String> pila1 = new Stack();
+        Stack<String> pila2 = new Stack();
         int tamaño=transiciones.size();
         char[] aCaracteres = cadena.toCharArray();
         String estado_actual=estado_inicial;
         boolean aceptacion=false;
-        String cadenaf = "";
-        StringBuilder stack = new StringBuilder();
+        StringBuilder stack1 = new StringBuilder();
+        StringBuilder stack2 = new StringBuilder();
         StringBuilder procesamiento = new StringBuilder();
-        char[] stack1=new char[tamaño];
-        char[] stack2=new char[tamaño];
+        char[] stackin1=new char[tamaño];
+        char[] stackin2=new char[tamaño];
+        char[] stackout1=new char[tamaño];
+        char[] stackout2=new char[tamaño];
         String[] estado=new String[tamaño];
         char[] cadena_estado=new char[tamaño];
         String[] sig_estado=new String[tamaño];
@@ -162,12 +164,15 @@ public class AFPD {
         Boolean computando = true;
         String resultado;
 
-        //sepraramos en 3 arreglos el conjunto de estados de aceptacion
+        //sepraramos los estados, y e
         for(int i=0;i<transiciones.size();i++){
 
             String item= (String) transiciones.get(i);
-            stack1[i] =item.charAt(5);
-            stack2[i] =item.charAt(10);
+            stackin1[i] =item.charAt(5);
+            stackin2[i] =item.charAt(7);
+            stackout1[i] =item.charAt(12);
+            stackout2[i] =item.charAt(14);
+
             char[] item_=item.toCharArray();
             for(int j=0;j<item_.length;j++){
                 if(item_[j] == ':'){
@@ -178,14 +183,14 @@ public class AFPD {
                 }
             }
             char[] aux=new char[posicion1];
-            char[] aux2=new char[item_.length-(posicion2+3)];
+            char[] aux2=new char[item_.length-(posicion2+5)];
             int k=0;
             for(int j=0;j<posicion1;j++){
                 aux[j]=item_[j];
             }
             estado[i]=new String(aux);
             cadena_estado[i]=item_[posicion1+1];
-            for(int j=posicion2+1;j<item_.length-2;j++){
+            for(int j=posicion2+1;j<item_.length-4;j++){
                 aux2[k]=item_[j];
                 k++;
             }
@@ -195,9 +200,11 @@ public class AFPD {
 
 
 
-        pila.push("Z");
-        stack.append("$");
-        cad= ("("+estado_actual+","+cadena+","+stack+")->");
+        pila1.push("Z");
+        pila2.push("Z");
+        stack1.append("$");
+        stack2.append("$");
+        cad= ("("+estado_actual+","+cadena+","+stack1+","+stack2+")->");
         procesamiento.append(cad);
         for(int i=0; i< aCaracteres.length;i++){
             int num=0;
@@ -208,30 +215,86 @@ public class AFPD {
 
                         //insercion o eliminacion de la pila
                         for(int k=0;k<alfabeto_pila.size();k++) {
-                            if (String.valueOf(stack1[j]).equals("$") && !(String.valueOf(stack2[j]).equals("$")) ) {
-                                pila.push(String.valueOf(stack2[j]));
-                                stack.append(stack2[j]);
-
+                            if ((String.valueOf(stackin1[j]).equals("$") && !(String.valueOf(stackout1[j]).equals("$"))) &&
+                                    (String.valueOf(stackin2[j]).equals("$") && !(String.valueOf(stackout2[j]).equals("$")))) {
+                                pila1.push(String.valueOf(stackout1[j]));
+                                pila2.push(String.valueOf(stackout2[j]));
+                                stack1.append(stackout1[j]);
+                                stack2.append(stackout2[j]);
+                                System.out.println("1");
                                 break;
-                            } else if (String.valueOf(stack1[j]).equals("$") && String.valueOf(stack2[j]).equals("$")){
-                                System.out.println("if 2");
+                            } else if (((String.valueOf(stackin1[j]).equals(alfabeto_pila.get(k))) && (pila1.peek().equals(String.valueOf(stackin1[j]))) && !(String.valueOf(stackout1[j]).equals("$")))&&
+                                    ((String.valueOf(stackin2[j]).equals(alfabeto_pila.get(k))) && (pila2.peek().equals(String.valueOf(stackin2[j]))) && !(String.valueOf(stackout2[j]).equals("$")))) {
+                                pila1.pop();
+                                pila2.pop();
+                                stack1.deleteCharAt(stack1.length()-1);
+                                stack2.deleteCharAt(stack2.length()-1);
+                                pila1.push(String.valueOf(stackout1[j]));
+                                pila2.push(String.valueOf(stackout2[j]));
+                                stack1.append(stackout1[j]);
+                                stack2.append(stackout2[j]);
                                 break;
-                            } else if ((String.valueOf(stack1[j]).equals(alfabeto_pila.get(k))) && (pila.peek().equals(String.valueOf(stack1[j]))) && !(String.valueOf(stack2[j]).equals("$"))) {
-                                pila.pop();
-                                stack.deleteCharAt(stack.length()-1);
-                                pila.push(String.valueOf(stack2[j]));
-                                stack.append(stack2[j]);
+                            } else if ((String.valueOf(stackin1[j]).equals("$") && (String.valueOf(stackout1[j]).equals("$"))) &&
+                                    ((String.valueOf(stackin2[j]).equals(alfabeto_pila.get(k))) && (pila2.peek().equals(String.valueOf(stackin2[j]))) && !(String.valueOf(stackout2[j]).equals("$")))) {
 
+                                pila2.pop();
+                                stack2.deleteCharAt(stack2.length()-1);
+                                pila2.push(String.valueOf(stackout2[j]));
+                                stack2.append(stackout2[j]);
+                                break;
+                            } else if ((String.valueOf(stackin2[j]).equals("$") && (String.valueOf(stackout2[j]).equals("$"))) &&
+                                    ((String.valueOf(stackin1[j]).equals(alfabeto_pila.get(k))) && (pila2.peek().equals(String.valueOf(stackin1[j]))) && !(String.valueOf(stackout1[j]).equals("$")))) {
+
+                                pila1.pop();
+                                stack1.deleteCharAt(stack1.length()-1);
+                                pila1.push(String.valueOf(stackout1[j]));
+                                stack1.append(stackout1[j]);
+                                break;
+                            } else if ((String.valueOf(stackin1[j]).equals("$") && (String.valueOf(stackout1[j]).equals("$"))) &&
+                                    (String.valueOf(stackin2[j]).equals("$") && !(String.valueOf(stackout2[j]).equals("$")))) {
+
+                                pila2.push(String.valueOf(stackout2[j]));
+                                stack2.append(stackout2[j]);
+                                break;
+                            } else if ((String.valueOf(stackin2[j]).equals("$") && (String.valueOf(stackout2[j]).equals("$"))) &&
+                                    (String.valueOf(stackin1[j]).equals("$") && !(String.valueOf(stackout1[j]).equals("$")))) {
+
+                                pila1.push(String.valueOf(stackout1[j]));
+                                stack1.append(stackout1[j]);
                                 break;
 
-                            }else if (String.valueOf(stack1[j]).equals(alfabeto_pila.get(k))  && (pila.peek().equals(String.valueOf(stack1[j]))) && (String.valueOf(stack2[j]).equals("$"))) {
-                                if(!pila.empty()) {
-                                    pila.pop();
-                                    stack.deleteCharAt(stack.length()-1);
+
+                            } else if ((String.valueOf(stackin1[j]).equals("$") && (String.valueOf(stackout1[j]).equals("$"))) &&
+                                    (String.valueOf(stackin2[j]).equals("$") && (String.valueOf(stackout2[j]).equals("$")))){
+                                break;
+                            }else if (((pila1.peek().equals(String.valueOf(stackin1[j]))) && (String.valueOf(stackout1[j]).equals("$"))) &&
+                                    (String.valueOf(stackin2[j]).equals("$") && (String.valueOf(stackout2[j]).equals("$")))){
+                                if(!pila1.empty()) {
+                                    pila1.pop();
+                                    stack1.deleteCharAt(stack1.length()-1);
                                     break;
                                 }
+                            }else if (((pila2.peek().equals(String.valueOf(stackin2[j]))) && (String.valueOf(stackout2[j]).equals("$"))) &&
+                                    (String.valueOf(stackin1[j]).equals("$") && (String.valueOf(stackout1[j]).equals("$")))){
+                                if(!pila2.empty()) {
+                                    pila2.pop();
+                                    stack2.deleteCharAt(stack2.length()-1);
+                                    break;
+                                }
+                            }else if ((String.valueOf(stackin2[j]).equals(alfabeto_pila.get(k))  && (pila2.peek().equals(String.valueOf(stackin2[j]))) && (String.valueOf(stackout2[j]).equals("$"))) &&
+                                    (String.valueOf(stackin1[j]).equals(alfabeto_pila.get(k))  && (pila1.peek().equals(String.valueOf(stackin1[j]))) && (String.valueOf(stackout1[j]).equals("$")))){
+                                if(!(pila2.empty() && pila1.empty())) {
+                                    pila1.pop();
+                                    pila2.pop();
+                                    stack1.deleteCharAt(stack1.length()-1);
+                                    stack2.deleteCharAt(stack2.length()-1);
+                                    break;
+                                }
+                            }else {
+                                if (k == alfabeto.size() - 1) {
+                                    computando = false;
+                                }
                             }
-                            computando = false;
                         }
                     }
                 }
@@ -240,30 +303,30 @@ public class AFPD {
 
             if (computando) {
 
-               int l ;
+                int l ;
                 if (i==0) {
                     char[] auxchar=new char[aCaracteres.length-i-1];
                     l = 1;
-                    //System.out.println(auxchar.length);
+
                     for(int k=0;k<auxchar.length;k++){
                         auxchar[k]=aCaracteres[l];
                         l++;
                     }
-                   if(auxchar.length!=0) {
+                    if(auxchar.length!=0) {
 
-                       estado_actual = sig_estado[num];
-                       cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack + ")->");
-                       procesamiento.append(cad);
-                   }else{
-                       estado_actual = sig_estado[num];
-                       cad = ("(" + estado_actual + ",$" + new String(auxchar) + "," + stack + ")>>");
-                       procesamiento.append(cad);
-                   }
+                        estado_actual = sig_estado[num];
+                        cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack1 +"," + stack2 + ")->");
+                        procesamiento.append(cad);
+                    }else{
+                        estado_actual = sig_estado[num];
+                        cad = ("(" + estado_actual + ",$" + new String(auxchar) + "," + stack1+ "," + stack2 +  ")>>");
+                        procesamiento.append(cad);
+                    }
 
                 }else{
 
                     char[] auxchar=new char[aCaracteres.length-i-1];
-                    //System.out.println(auxchar.length);
+
                     l = i+1;
                     for(int k=0;k<auxchar.length;k++){
                         auxchar[k]=aCaracteres[l];
@@ -272,11 +335,11 @@ public class AFPD {
                     if(auxchar.length!=0) {
 
                         estado_actual = sig_estado[num];
-                        cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack + ")->");
+                        cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack1  +"," + stack2 + ")->");
                         procesamiento.append(cad);
                     }else{
                         estado_actual = sig_estado[num];
-                        cad = ("(" + estado_actual + ",$" + new String(auxchar) + "," + stack + ")>>");
+                        cad = ("(" + estado_actual + ",$" + new String(auxchar) + "," + stack1 +"," + stack2 + ")>>");
                         procesamiento.append(cad);
                     }
                 }
@@ -288,19 +351,21 @@ public class AFPD {
                     auxchar[k]=aCaracteres[l];
                     l++;
                 }
-               cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack + ")>>no");
+                cad = ("(" + estado_actual + "," + new String(auxchar) + "," + stack1 +"," + stack2 + ")>>no");
                 procesamiento.append(cad);
                 resultado = procesamiento.toString();
                 System.out.println(procesamiento);
                 return resultado;
             }
         }
-        if(pila.peek().equals("Z")) pila.pop();
-
+        if(pila1.peek().equals("Z") && pila2.peek().equals("Z") ) {
+            pila1.pop();
+            pila2.pop();
+        }
 
         for(int i=0;i<estados_aceptacion.size();i++){
             String estado_aceptacion= (String) estados_aceptacion.get(i);
-            if((estado_actual.equals(estado_aceptacion))  && (pila.empty())){
+            if((estado_actual.equals(estado_aceptacion))  && (pila1.empty()) && (pila2.empty())){
                 aceptacion=true;
             }
         }
@@ -327,7 +392,6 @@ public class AFPD {
             bw = new BufferedWriter(new FileWriter(archivo));
 
             for(int i=0;i<cadenas.length;i++){
-                System.out.println(cadenas[i]);
                 bw.write(cadenas[i]);
                 bw.newLine();
                 System.out.println(esAceptada(cadenas[i]));
@@ -351,6 +415,4 @@ public class AFPD {
         }
 
     }
-
 }
-

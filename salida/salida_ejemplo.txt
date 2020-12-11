@@ -1,0 +1,142 @@
+abab
+Procesamiento 1:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,$)->
+(q0,b,[A])->
+(q0, $,[A, B])>>
+no
+Procesamiento 2:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,[A, B])->
+(q0,b,[A])->
+(q0, $,[])>>
+yes
+Procesamiento 3:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,[A, B])->
+(q0,b,[A, B, A])->
+(q0, $,[A, B])>>
+no
+Procesamiento 4:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,[A, B])->
+(q0,b,[A])->
+(q0, $,[])>>
+yes
+Procesamiento 5:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,$)->
+(q0,b,[A])->
+(q0, $,[])>>
+yes
+Procesamiento 6:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,$)->
+(q0,b,[A])->
+(q0, $,[A, B])>>
+no
+Procesamiento 7:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,$)->
+(q0,b,[A])->
+(q0, $,[A, B])>>
+no
+Procesamiento 8:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,$)->
+(q0,b,[A])->
+(q0, $,[A, B])>>
+no
+Procesamiento 9:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,[A, B])->
+(q0,b,[A])->
+(q0, $,[A, B])>>
+no
+Procesamiento 10:
+(q0,abab,$)->
+(q0,bab,[A])->
+(q0,ab,$)->
+(q0,b,[A])->
+(q0, $,[A, B])>>
+no
+baba
+Procesamiento 1:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,[B, A])->
+(q0,a,[B])->
+(q0, $,[B, A])>>
+no
+Procesamiento 2:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[])>>
+yes
+Procesamiento 3:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[])>>
+yes
+Procesamiento 4:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[])>>
+yes
+Procesamiento 5:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[B, A])>>
+no
+Procesamiento 6:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[])>>
+yes
+Procesamiento 7:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[])>>
+yes
+Procesamiento 8:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,[B, A])->
+(q0,a,[B])->
+(q0, $,[B, A])>>
+no
+Procesamiento 9:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,[B, A])->
+(q0,a,[B, A, B])->
+(q0, $,[B, A])>>
+no
+Procesamiento 10:
+(q0,baba,$)->
+(q0,aba,[B])->
+(q0,ba,$)->
+(q0,a,[B])->
+(q0, $,[B, A])>>
+no

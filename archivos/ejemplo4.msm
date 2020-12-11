@@ -1,11 +1,21 @@
-Formato de Entrada AF2P
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nunc a
- vestibulum ante, sed egestas dui. Aliquam sit amet eleifend ipsum,
- vitae rhoncus augue. Donec feugiat tincidunt malesuada. Integer ac
- posuere elit. In sit amet sapien elementum risus blandit pellentesque.
- Nam eu sem accumsan, imperdiet augue et, porttitor orci. Cras vestibulum
- maximus vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Sed non ex volutpat, volutpat libero ac, tristique quam. Aliquam augue massa,
- rutrum ac justo at, fringilla auctor neque. Quisque bibendum pharetra erat,
- eu commodo eros volutpat non.
+#alphabet
+a
+b
+c
+#alphabetP
+A
+#states
+q0
+q1
+q2
+#initial
+q0
+#accepting
+q0
+q2
+#transitions
+q0:a|$|$>q0|A|A
+q0:b|A|$>q1|$|$
+q1:b|A|$>q1|$|$
+q1:c|$|A>q2|$|$
+q2:c|$|A>q2|$|$

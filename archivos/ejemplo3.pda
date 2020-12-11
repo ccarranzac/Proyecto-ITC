@@ -1,11 +1,17 @@
-Formato de Entrada AFPN
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.Nunc a
- vestibulum ante, sed egestas dui. Aliquam sit amet eleifend ipsum,
- vitae rhoncus augue. Donec feugiat tincidunt malesuada. Integer ac
- posuere elit. In sit amet sapien elementum risus blandit pellentesque.
- Nam eu sem accumsan, imperdiet augue et, porttitor orci. Cras vestibulum
- maximus vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- Sed non ex volutpat, volutpat libero ac, tristique quam. Aliquam augue massa,
- rutrum ac justo at, fringilla auctor neque. Quisque bibendum pharetra erat,
- eu commodo eros volutpat non.
+#states
+q0
+#initial
+q0
+#accepting
+q0
+#tapeAlphabet
+a
+b
+#stackAlphabet
+A
+B
+#transitions
+q0:a:$>q0:A
+q0:a:B>q0:$
+q0:b:$>q0:B
+q0:b:A>q0:$
