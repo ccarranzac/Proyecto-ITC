@@ -102,6 +102,11 @@ public class AFD {
         this.transiciones = transiciones_f;
         this.transiciones = transiciones_f;
 
+        System.out.println(alfabeto);
+        System.out.println(estados);
+        System.out.println(estado_inicial);
+
+
     }
 
     //verificar que la cadena ingresada pertenezca al alfabeto

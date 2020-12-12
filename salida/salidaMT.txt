@@ -1,0 +1,2 @@
+aabbccc
+!q0aabbccc!->!Aq1abbccc!->!Aaq1bbccc!->!AaBq2bccc!->!AaBbq2ccc!->!AaBbq3Ccc!->!AaBq3bCcc!->!Aaq3BbCcc!->!Aq3aBbCcc!->!q3AaBbCcc!->!Aq0aBbCcc!->!AAq1BbCcc!->!AABq1bCcc!->!AABBq2Ccc!->!AABBCq2cc!->!AABBCq3Cc!->!AABBq3CCc!->!AABq3BCCc!->!AAq3BBCCc!->!Aq3ABBCCc!->!AAq0BBCCc!->!AABq4BCCc!->!AABBq4CCc!(Rejected)

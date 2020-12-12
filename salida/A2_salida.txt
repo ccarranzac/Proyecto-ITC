@@ -1,0 +1,6 @@
+abbc
+(q0,abbc,$,$)->(q0,bbc,$A,$A)->(q1,bc,$,$A)->(q1,c,$,$A)->(q2,$,$,$)>>yes
+aabc
+(q0,aabc,$,$)->(q0,abc,$A,$A)->(q0,bc,$AA,$AA)->(q1,c,$A,$AA)->(q2,$,$A,$A)>>no
+abc
+(q0,abc,$,$)->(q0,bc,$A,$A)->(q1,c,$,$A)->(q2,$,$,$)>>yes
